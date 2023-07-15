@@ -1,8 +1,8 @@
 import React from "react";
 
-function ArtDetail() {
+function ArtDetail({artwork}) {
     return (
-        <h3>This is ArtDetail</h3>
+        <h3>{artwork.title}</h3>
     );
 };
 

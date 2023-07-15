@@ -18,8 +18,11 @@ function ArtContainer() {
         setArtworks(data.data);
     }
 
-    function updateSelected(artwork) {
-        setSelectedArtwork(artwork);
+    function updateSelectedArtwork(id) {
+        const newSelectedArtwork = artworks.find((artwork) => {
+            return artwork.id === Number(id);
+        });
+        setSelectedArtwork(newSelectedArtwork);
     }
 
     return (
@@ -28,9 +31,8 @@ function ArtContainer() {
                 <h1>Art Institute of Chicago</h1>
                 <h2>Famous European Artworks</h2>
             </header>
-            <h2>This is ArtContainer</h2>
-            <ArtworkSelect artworks={artworks} updateSelected={updateSelected} />
-            <ArtDetail />
+            <ArtworkSelect artworks={artworks} onArtworkSelected={updateSelectedArtwork} />
+            { selectedArtwork && <ArtDetail artwork={selectedArtwork} />}
         </>
     );
 };
