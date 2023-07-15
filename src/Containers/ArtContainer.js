@@ -11,18 +11,17 @@ function ArtContainer() {
     useEffect(() => {
         getArtworks();
     }, [])
-    
+
     async function getArtworks() {
         const res = await fetch('https://api.artic.edu/api/v1/artworks/search?q=monet&limit=10');
         const data = await res.json();
         setArtworks(data.data);
     }
 
-    function updateSelectedArtwork(id) {
-        const newSelectedArtwork = artworks.find((artwork) => {
-            return artwork.id === Number(id);
-        });
-        setSelectedArtwork(newSelectedArtwork);
+    async function updateSelectedArtwork(id) {
+        const res = await fetch(`https://api.artic.edu/api/v1/artworks/${id}`);
+        const data = await res.json();
+        setSelectedArtwork(data.data);
     }
 
     return (

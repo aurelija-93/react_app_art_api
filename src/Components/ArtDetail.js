@@ -2,7 +2,12 @@ import React from "react";
 
 function ArtDetail({artwork}) {
     return (
-        <h3>{artwork.title}</h3>
+        <>
+            <h3>{artwork.title}</h3>
+            <h4>{artwork.artist_title.toUpperCase()}</h4>
+            <h5>{artwork.medium_display}</h5>
+            <img src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`} alt={artwork.thumbnail.alt_text} />
+        </>
     );
 };
 
