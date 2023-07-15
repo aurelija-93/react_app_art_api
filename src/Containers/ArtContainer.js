@@ -31,7 +31,7 @@ function ArtContainer() {
         if (!selectedArtist) {
             return null;
         };
-        const res = await fetch(`https://api.artic.edu/api/v1/artworks/search?q=${selectedArtist.value}&limit=10`);
+        const res = await fetch(`https://api.artic.edu/api/v1/artworks/search?q=${selectedArtist.name}&limit=10`);
         const data = await res.json();
         setArtworks(data.data);
     }
@@ -75,7 +75,7 @@ function ArtContainer() {
                 <h2>Famous European Artworks</h2>
             </header>
             <ArtistSelect artists={artists} onArtistSelected={updateSelectedArtist}/>
-            { selectedArtist && <ArtworkSelect artworks={artworks} onArtworkSelected={updateSelectedArtwork} />}
+            { selectedArtist && <ArtworkSelect key={selectedArtist.value} artworks={artworks} onArtworkSelected={updateSelectedArtwork} />}
             <button onClick={onPreviousClick}>Previous</button>
             <button onClick={onNextClick}>Next</button>
             { selectedArtwork && <ArtDetail artwork={selectedArtwork} />}
