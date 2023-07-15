@@ -12,7 +12,7 @@ function ArtContainer() {
     
     useEffect(() => {
         getArtworks();
-    }, [])
+    }, [selectedArtist])
 
     const artists = [
         {name: 'Pablo Picasso', value: 'picasso'},
@@ -28,7 +28,10 @@ function ArtContainer() {
     ];
 
     async function getArtworks() {
-        const res = await fetch('https://api.artic.edu/api/v1/artworks/search?q=monet&limit=10');
+        if (!selectedArtist) {
+            return null;
+        };
+        const res = await fetch(`https://api.artic.edu/api/v1/artworks/search?q=${selectedArtist.value}&limit=10`);
         const data = await res.json();
         setArtworks(data.data);
     }
@@ -53,8 +56,11 @@ function ArtContainer() {
                 <h2>Famous European Artworks</h2>
             </header>
             <ArtistSelect artists={artists} onArtistSelected={updateSelectedArtist}/>
-            <ArtworkSelect artworks={artworks} onArtworkSelected={updateSelectedArtwork} />
+            { selectedArtist && <ArtworkSelect artworks={artworks} onArtworkSelected={updateSelectedArtwork} />}
             { selectedArtwork && <ArtDetail artwork={selectedArtwork} />}
+            <footer>
+                <a href="https://api.artic.edu/docs/">Art Institute of Chicago API</a>
+            </footer>
         </>
     );
 };
