@@ -4,7 +4,7 @@ function ArtistSelect({artists, onArtistSelected}) {
 
     const artistOptions = artists.map((artist) => {
         return (
-            <option value={artist.value}>{artist.name}</option>
+            <option key={artist.value} value={artist.value}>{artist.name}</option>
         );
     })
 

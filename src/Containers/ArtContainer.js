@@ -9,7 +9,7 @@ function ArtContainer() {
     const [artworks, setArtworks] = useState([]);
     const [selectedArtist, setSelectedArtist] = useState(null);
     const [selectedArtwork, setSelectedArtwork] = useState(null);
-    
+
     useEffect(() => {
         getArtworks();
     }, [selectedArtist])
@@ -35,6 +35,12 @@ function ArtContainer() {
         const data = await res.json();
         setArtworks(data.data);
     }
+    function updateSelectedArtist(value) {
+        const foundArtist = artists.find((artist) => {
+            return artist.value === value;
+        });
+        setSelectedArtist(foundArtist);
+    }
 
     async function updateSelectedArtwork(id) {
         const res = await fetch(`https://api.artic.edu/api/v1/artworks/${id}`);
@@ -42,12 +48,25 @@ function ArtContainer() {
         setSelectedArtwork(data.data);
     }
 
-    function updateSelectedArtist(value) {
-        const foundArtist = artists.find((artist) => {
-            return artist.value === value;
+    function navigateSelectedArtwork(modifier) {
+        const currentIndex = artworks.findIndex((artwork) => {
+            return artwork.id === selectedArtwork.id;
         });
-        setSelectedArtist(foundArtist);
-    }
+        const newIndex = currentIndex + modifier;
+        if (newIndex >=0 && newIndex <=9) {
+            const newSelectedArtwork = artworks[newIndex];
+            const newId = newSelectedArtwork.id;
+            updateSelectedArtwork(newId);
+        }
+    };
+
+    function onPreviousClick() {
+        navigateSelectedArtwork(-1);
+    };
+
+    function onNextClick() {
+        navigateSelectedArtwork(1);
+    };
 
     return (
         <>
@@ -57,6 +76,8 @@ function ArtContainer() {
             </header>
             <ArtistSelect artists={artists} onArtistSelected={updateSelectedArtist}/>
             { selectedArtist && <ArtworkSelect artworks={artworks} onArtworkSelected={updateSelectedArtwork} />}
+            <button onClick={onPreviousClick}>Previous</button>
+            <button onClick={onNextClick}>Next</button>
             { selectedArtwork && <ArtDetail artwork={selectedArtwork} />}
             <footer>
                 <a href="https://api.artic.edu/docs/">Art Institute of Chicago API</a>
