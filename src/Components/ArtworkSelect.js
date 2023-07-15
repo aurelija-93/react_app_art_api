@@ -1,8 +1,19 @@
 import React from "react";
 
-function ArtworkSelect() {
+function ArtworkSelect({artworks, updateSelected}) {
+
+    const artworkOptions = artworks.map((artwork) => {
+        return <option key={artwork.id} value={artwork.id}>{artwork.title}</option>
+    })
+
+    function onArtworkSelect(evt) {
+        updateSelected(evt.target.value);
+    }
+
     return (
-        <h3>This is ArtworkSelect</h3>
+        <select onChange={onArtworkSelect}>
+            {artworkOptions}
+        </select>
     );
 };
 
