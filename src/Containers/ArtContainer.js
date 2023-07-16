@@ -9,10 +9,11 @@ function ArtContainer() {
     const [artworks, setArtworks] = useState([]);
     const [selectedArtist, setSelectedArtist] = useState(null);
     const [selectedArtwork, setSelectedArtwork] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(null);
 
     useEffect(() => {
         getArtworks();
-    }, [selectedArtist])
+    })
 
     const artists = [
         {name: 'Pablo Picasso', value: 'picasso'},
@@ -35,6 +36,7 @@ function ArtContainer() {
         const data = await res.json();
         setArtworks(data.data);
     }
+
     function updateSelectedArtist(value) {
         const foundArtist = artists.find((artist) => {
             return artist.value === value;
@@ -46,6 +48,11 @@ function ArtContainer() {
         const res = await fetch(`https://api.artic.edu/api/v1/artworks/${id}`);
         const data = await res.json();
         setSelectedArtwork(data.data);
+
+        const newIndex = artworks.findIndex((artwork) => {
+            return artwork.id === data.data.id;
+        });
+        setCurrentIndex(newIndex);
     }
 
     function navigateSelectedArtwork(modifier) {
@@ -75,9 +82,13 @@ function ArtContainer() {
                 <h2>Famous European Artworks</h2>
             </header>
             <ArtistSelect artists={artists} onArtistSelected={updateSelectedArtist}/>
-            { selectedArtist && <ArtworkSelect key={selectedArtist.value} artworks={artworks} onArtworkSelected={updateSelectedArtwork} />}
-            <button onClick={onPreviousClick}>Previous</button>
-            <button onClick={onNextClick}>Next</button>
+            { selectedArtist && <ArtworkSelect
+                key={selectedArtist.value}
+                artworks={artworks}
+                onArtworkSelected={updateSelectedArtwork}
+            />}
+            <button disabled={currentIndex < 1 ? true : false} onClick={onPreviousClick}>Previous</button>
+            <button disabled={currentIndex > 8 ? true : false} onClick={onNextClick}>Next</button>
             { selectedArtwork && <ArtDetail artwork={selectedArtwork} />}
             <footer>
                 <a href="https://api.artic.edu/docs/">Art Institute of Chicago API</a>
