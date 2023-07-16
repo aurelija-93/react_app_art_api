@@ -42,6 +42,7 @@ function ArtContainer() {
             return artist.value === value;
         });
         setSelectedArtist(foundArtist);
+        setSelectedArtwork(null);
     }
 
     async function updateSelectedArtwork(id) {
@@ -87,8 +88,13 @@ function ArtContainer() {
                 artworks={artworks}
                 onArtworkSelected={updateSelectedArtwork}
             />}
-            <button disabled={currentIndex < 1 ? true : false} onClick={onPreviousClick}>Previous</button>
-            <button disabled={currentIndex > 8 ? true : false} onClick={onNextClick}>Next</button>
+            {selectedArtwork &&
+                <div>
+                    <button disabled={currentIndex < 1 ? true : false} onClick={onPreviousClick}>Previous</button>
+                    <button disabled={currentIndex > 8 ? true : false} onClick={onNextClick}>Next</button>
+                </div>
+            }
+            
             { selectedArtwork && <ArtDetail artwork={selectedArtwork} />}
             <footer>
                 <a href="https://api.artic.edu/docs/">Art Institute of Chicago API</a>
