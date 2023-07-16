@@ -9,7 +9,9 @@ function ArtDetail({artwork}) {
                 <h4>{artwork.artist_title.toUpperCase()}</h4>
                 <h5>{artwork.medium_display}, {artwork.date_display}</h5>
             </header>
-            <img src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`} alt={artwork.thumbnail.alt_text} />
+            <div className="img-container">
+                <img src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`} alt={artwork.thumbnail.alt_text} />
+            </div>
         </>
     );
 };

@@ -1,3 +1,73 @@
 .App {
   text-align: center;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  color: white;
+  background-color:darkslategrey;
+  margin: 0;
+  padding: 2rem;
+}
+
+h2 {
+  text-decoration: underline;
+  text-underline-offset: 10%;
+}
+
+.artist-name {
+  margin: 0;
+}
+
+select {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-color: black;
+  width: 30%;
+}
+
+button {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  width: 6rem;
+  height: 2rem;
+  border: none;
+  color: white;
+  background-color: darkslategrey;
+  font-size: 1rem;
+}
+
+button:hover {
+  font-weight: bold;
+}
+
+button:disabled {
+  color: black;
+  background-color:gainsboro;
+  font-weight: normal;
+}
+
+p {
+  margin: 0 5rem 1rem;
+}
+
+.img-container {
+  margin: 0 2rem 2rem 2rem;
+}
+
+img {
+  width: 100%;
+}
+
+footer {
+  background-color:darkslategrey;
+  margin: 0;
+  padding: 2rem;
+}
+
+a {
+  color: white;
+  text-underline-offset: 10%;
 }

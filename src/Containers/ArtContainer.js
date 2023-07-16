@@ -144,18 +144,22 @@ function ArtContainer() {
                 <h2>Famous European Artworks</h2>
             </header>
 
-            <ArtistSelect artists={artists} onArtistSelected={updateSelectedArtist}/>
+            <div className="select-container">
+                <ArtistSelect artists={artists} onArtistSelected={updateSelectedArtist}/>
 
-            { selectedArtist && <ArtworkSelect
-                key={selectedArtist.value}
-                artworks={artworks}
-                onArtworkSelected={updateSelectedArtwork}
-            />}
+                <br />
+
+                { selectedArtist && <ArtworkSelect
+                    key={selectedArtist.value}
+                    artworks={artworks}
+                    onArtworkSelected={updateSelectedArtwork}
+                />}
+            </div>
 
             { selectedArtist && !selectedArtwork && <ArtistDetail artist={selectedArtist}/> }
 
             { selectedArtwork &&
-                <div>
+                <div className="button-container">
                     <button
                         disabled={currentIndex < 1 ? true : false}
                         onClick={onPreviousClick}>
