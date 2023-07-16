@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ArtworkSelect from "../Components/ArtworkSelect";
 import ArtDetail from "../Components/ArtDetail";
 import ArtistSelect from "../Components/ArtistSelect";
+import ArtistDetail from "../Components/ArtistDetail";
 
 
 function ArtContainer() {
@@ -16,16 +17,16 @@ function ArtContainer() {
     })
 
     const artists = [
-        {name: 'Pablo Picasso', value: 'picasso'},
-        {name: 'Claude Monet', value: 'monet'},
-        {name: 'Peter Paul Rubens', value: 'rubens'},
-        {name: 'Salvador Dali', value: 'dali'},
-        {name: 'Rembrandt', value: 'rembrandt'},
-        {name: 'Pierre-Auguste Renoir', value: 'renoir'},
-        {name: 'Johannes Vermeer', value: 'vermeer'},
-        {name: 'Edouard Manet', value: 'manet'},
-        {name: 'Paul Cezanne', value: 'cezanne'},
-        {name: 'Caravaggio', value: 'caravaggio'}
+        {name: 'Paul Cezanne', value: '40482'},
+        {name: 'Salvador Dali', value: '34123'},
+        {name: 'Edgar Degas', value: '40543'},
+        {name: 'Eugene Delacroix', value: '40545'},
+        {name: 'Edouard Manet', value: '35577'},
+        {name: 'Claude Monet', value: '35809'},
+        {name: 'Pablo Picasso', value: '36198'},
+        {name: 'Pierre-Auguste Renoir', value: '36351'},
+        {name: 'Rembrandt van Rijn', value: '40796'},
+        {name: 'Peter Paul Rubens', value: '36487'}
     ];
 
     async function getArtworks() {
@@ -82,20 +83,34 @@ function ArtContainer() {
                 <h1>Art Institute of Chicago</h1>
                 <h2>Famous European Artworks</h2>
             </header>
+
             <ArtistSelect artists={artists} onArtistSelected={updateSelectedArtist}/>
+
             { selectedArtist && <ArtworkSelect
                 key={selectedArtist.value}
                 artworks={artworks}
                 onArtworkSelected={updateSelectedArtwork}
             />}
-            {selectedArtwork &&
+
+            { selectedArtist && !selectedArtwork && <ArtistDetail artist={selectedArtist}/> }
+
+            { selectedArtwork &&
                 <div>
-                    <button disabled={currentIndex < 1 ? true : false} onClick={onPreviousClick}>Previous</button>
-                    <button disabled={currentIndex > 8 ? true : false} onClick={onNextClick}>Next</button>
+                    <button
+                        disabled={currentIndex < 1 ? true : false}
+                        onClick={onPreviousClick}>
+                        Previous
+                    </button>
+                    <button
+                        disabled={currentIndex > 8 ? true : false}
+                        onClick={onNextClick}>
+                        Next
+                    </button>
                 </div>
             }
             
             { selectedArtwork && <ArtDetail artwork={selectedArtwork} />}
+
             <footer>
                 <a href="https://api.artic.edu/docs/">Art Institute of Chicago API</a>
             </footer>
